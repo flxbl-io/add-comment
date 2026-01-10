@@ -1,4 +1,4 @@
-name: 'Add Comment'
+name: 'Add Comment (by flxbl-io)'
 description: 'Add or update comments on GitHub Pull Requests and Issues with support for comment deduplication using message IDs'
 author: 'flxbl-io'
 
