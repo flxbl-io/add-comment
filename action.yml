@@ -1,0 +1,42 @@
+name: 'Add Comment'
+description: 'Add or update comments on GitHub Pull Requests and Issues with support for comment deduplication using message IDs'
+author: 'flxbl-io'
+
+branding:
+  icon: 'message-circle'
+  color: 'blue'
+
+inputs:
+  message:
+    description: 'The message content to post as a comment (supports Markdown)'
+    required: true
+  issue-number:
+    description: 'The issue or pull request number to comment on'
+    required: false
+  pr-number:
+    description: 'Alias for issue-number (for pull request context)'
+    required: false
+  repository:
+    description: 'The repository in owner/repo format'
+    required: false
+    default: '${{ github.repository }}'
+  token:
+    description: 'GitHub token for API authentication'
+    required: false
+    default: '${{ github.token }}'
+  message-id:
+    description: 'Unique identifier for the comment. Used to find and update existing comments instead of creating duplicates'
+    required: false
+    default: ''
+
+outputs:
+  comment-id:
+    description: 'The ID of the created or updated comment'
+  comment-created:
+    description: 'Whether a new comment was created (true/false)'
+  comment-updated:
+    description: 'Whether an existing comment was updated (true/false)'
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
