@@ -2,53 +2,12 @@ name: Release
 
 on:
   push:
-    tags:
-      - 'v*'
-
-permissions:
-  contents: write
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+    uses: flxbl-io/flxbl-actions/.github/workflows/release.yml@main
+    secrets:
+      GHA_TOKEN: ${{ secrets.GHA_TOKEN }}
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build action
-        run: npm run build
-
-      - name: Get version from tag
-        id: get_version
-        run: |
-          VERSION=${GITHUB_REF#refs/tags/}
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "major_version=${VERSION%%.*}" >> $GITHUB_OUTPUT
-          echo "minor_version=${VERSION%.*}" >> $GITHUB_OUTPUT
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          name: Release ${{ steps.get_version.outputs.version }}
-          generate_release_notes: true
-
-      - name: Update major version tag
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git tag -fa ${{ steps.get_version.outputs.major_version }} -m "Update ${{ steps.get_version.outputs.major_version }} tag"
-          git push origin ${{ steps.get_version.outputs.major_version }} --force
-
-      - name: Update minor version tag
-        run: |
-          git tag -fa ${{ steps.get_version.outputs.minor_version }} -m "Update ${{ steps.get_version.outputs.minor_version }} tag"
-          git push origin ${{ steps.get_version.outputs.minor_version }} --force
