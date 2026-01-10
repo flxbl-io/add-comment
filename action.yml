@@ -3,7 +3,7 @@ description: 'Add or update comments on GitHub Pull Requests and Issues with sup
 author: 'flxbl-io'
 
 branding:
-  icon: 'message-circle'
+  icon: 'anchor'
   color: 'blue'
 
 inputs:
