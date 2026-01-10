@@ -1,6 +1,6 @@
 {
   "name": "@flxbl-io/add-comment-action",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "GitHub Action to add or update comments on Pull Requests and Issues",
   "main": "dist/index.js",
   "scripts": {
