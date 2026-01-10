@@ -1,6 +1,6 @@
 # Add Comment (by flxbl-io)
 
-A GitHub Action to add or update comments on Pull Requests and Issues with support for comment deduplication using message IDs.
+A GitHub Action to add or update comments on Pull Requests and Issues with support for comment deduplication using unique message IDs.
 
 ## Features
 
